@@ -24,18 +24,7 @@ if ! command_exists mas ; then
   echo " ---- Mac App Store apps -----"
   brew install mas
   mas install 497799835  # Xcode (8.2.1)
-  echo " ------------ END ------------"
-fi
-
-#
-# Install zsh
-#
-if ! command_exists zsh ; then
-  echo " ------------ zsh ------------"
-  brew install zsh zsh-autosuggestions zsh-completions zsh-syntax-highlighting colordiff
-  which -a zsh
-  echo $pass | sudo -S -- sh -c 'echo '/usr/local/bin/zsh' >> /etc/shells'
-  chsh -s /usr/local/bin/zsh
+  # xcode-select --install
   echo " ------------ END ------------"
 fi
 
@@ -47,16 +36,6 @@ if ! command_exists vim ; then
   brew install vim --with-override-system-vi
   echo " ------------ END ------------"
 fi
-
-#
-# Powerline
-#
-echo " --------- Powerline ---------"
-# Font is 14pt Iconsolata for Powerline with Solarized Dark iterm2 colors.
-git clone https://github.com/bhilburn/powerlevel9k.git ~/powerlevel9k
-git clone https://github.com/powerline/fonts.git ~/fonts
-~/fonts/install.sh
-echo " ------------ END ------------"
 
 #
 # Install ruby
@@ -77,25 +56,26 @@ fi
 
 #
 # Install dotfiles system
-#
-echo " ---------- dotfiles ---------"
-sh -c "`curl -fsSL https://raw.githubusercontent.com/skwp/dotfiles/master/install.sh`"
-cp $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/settings/zsh/private.zsh ~/.yadr/zsh/private.zsh
-source ~/.zshrc
-echo " ------------ END ------------"
+# TODO
+# echo " ---------- dotfiles ---------"
+# sh -c "`curl -fsSL https://raw.githubusercontent.com/skwp/dotfiles/master/install.sh`"
+# cp $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/settings/bash/bash_profile.zsh ~/.yadr/zsh/private.zsh
+# source ~/.bash_profile
+# echo " ------------ END ------------"
 
 #
-# Install Node.js env
+# Node.js
 #
-if ! command_exists nodebrew ; then
-  echo " ---------- Node.js ----------"
-  curl -L git.io/nodebrew | perl - setup
-  nodebrew ls-remote
-  nodebrew install-binary latest
-  nodebrew ls
-  nodebrew use latest
+if ! command_exists nodenv ; then
+  echo " ----------- Node.js ------------"
+  brew install nodenv
+  nodenv --version
+  nodenv install -l
+  node_latest=$(nodebenv install -l | grep -v '[a-z]' | tail -1 | sed 's/ //g')
+  nodenv install $nodejs_latest
+  nodenv global $nodejs_latest
+  nodenv rehash
   node -v
-  npm -v
   echo " ------------ END ------------"
 fi
 
@@ -109,50 +89,12 @@ if ! command_exists yarn ; then
 fi
 
 #
-# TeX settings
-#
-if ! command_exists tex ; then
-  echo " ------------ TeX ------------"
-  brew cask install mactex
-  # Tex Live Utility > preference > path -> /Library/TeX/texbin
-  version=$(tex -version | grep -oE '2[0-9]{3}' | head -1)
-  echo $pass | sudo -S /usr/local/texlive/$version/bin/x86_64-darwin/tlmgr path add
-  echo $pass | sudo -S tlmgr update --self --all
-  # JPN Lang settings
-  cd /usr/local/texlive/$version/texmf-dist/scripts/cjk-gs-integrate
-  echo $pass | sudo -S perl cjk-gs-integrate.pl --link-texmf --force
-  echo $pass | sudo -S mktexlsr
-  echo $pass | sudo -S kanji-config-updmap-sys hiragino-elcapitan-pron
-  # Select ==> TeXShop > Preferences > Source > pTeX (ptex2pdf)
-  echo " ------------ END ------------"
-fi
-
-#
 # Install wget
 #
 if ! command_exists wget ; then
   echo " ----------- wget ------------"
   brew install wget
   wget --version
-  echo " ------------ END ------------"
-fi
-
-#
-# CocoaPods
-#
-if ! command_exists pod ; then
-  echo " --------- CocoaPods ---------"
-  echo $pass | sudo -S gem install -n /usr/local/bin cocoapods --pre
-  pod setup
-  echo " ------------ END ------------"
-fi
-
-#
-# Carthage
-#
-if ! command_exists carthage ; then
-  echo " --------- Carthage ----------"
-  brew install carthage
   echo " ------------ END ------------"
 fi
 
