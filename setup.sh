@@ -22,9 +22,9 @@ read -sp "Your Password: " pass;
 #
 if ! command_exists mas ; then
   echo " ---- Mac App Store apps -----"
-  # brew install mas
-  # mas install 497799835  # Xcode (8.2.1)
-  xcode-select --install
+  brew install mas
+  mas install 497799835  # Xcode (8.2.1)
+  # xcode-select --install
   echo " ------------ END ------------"
 fi
 
@@ -56,12 +56,12 @@ fi
 
 #
 # Install dotfiles system
-#
-echo " ---------- dotfiles ---------"
-sh -c "`curl -fsSL https://raw.githubusercontent.com/skwp/dotfiles/master/install.sh`"
-cp $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/settings/bash/bash_profile.zsh ~/.yadr/zsh/private.zsh
-source ~/.bash_profile
-echo " ------------ END ------------"
+# TODO
+# echo " ---------- dotfiles ---------"
+# sh -c "`curl -fsSL https://raw.githubusercontent.com/skwp/dotfiles/master/install.sh`"
+# cp $(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/settings/bash/bash_profile.zsh ~/.yadr/zsh/private.zsh
+# source ~/.bash_profile
+# echo " ------------ END ------------"
 
 #
 # Node.js
