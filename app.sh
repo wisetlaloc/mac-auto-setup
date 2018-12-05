@@ -16,11 +16,12 @@ brew cask install cheatsheet
 brew cask install docker
 brew cask install dropbox
 brew cask install google-chrome
+brew cask install google-japanese-ime
 brew cask install iterm2
 brew cask install postman
 brew cask install skype
 brew cask install sourcetree
+brew cask install vagrant
 brew cask install virtualbox
-brew cask install google-japanese-ime
 brew cask install visual-studio-code
 echo " ------------ END ------------"
