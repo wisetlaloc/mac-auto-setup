@@ -22,6 +22,6 @@ brew cask install postman
 brew cask install skype
 brew cask install sourcetree
 brew cask install vagrant
-brew cask install virtualbox
+brew cask install virtualbox　# need to give permission through settings WIP
 brew cask install visual-studio-code
 echo " ------------ END ------------"
