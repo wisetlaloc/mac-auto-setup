@@ -22,4 +22,5 @@ brew cask install skype
 brew cask install sourcetree
 brew cask install virtualbox
 brew cask install google-japanese-ime
+brew cask install visual-studio-code
 echo " ------------ END ------------"
